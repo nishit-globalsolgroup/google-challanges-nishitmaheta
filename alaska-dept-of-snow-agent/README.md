@@ -20,34 +20,6 @@ The solution uses:
 <p align="center">
   <img src="assets/diagram.png" width="800"/>
 </p>
-
-```mermaid
-flowchart TD
-    A[User] --> B[Frontend Chat UI]
-    B --> C[Cloud Run Service]
-
-    C --> D[Model Armor Prompt Check]
-    D --> E{Allowed?}
-
-    E -- No --> F[Blocked Response]
-
-    E -- Yes --> G[RAG Retrieval Layer]
-    G --> H[Cloud Storage Documents]
-
-    G --> I[Context Chunks]
-
-    I --> J[Gemini Model (Vertex AI)]
-
-    J --> K[Model Armor Response Check]
-    K --> L{Safe?}
-
-    L -- No --> M[Fallback Response]
-    L -- Yes --> N[Final Answer]
-
-    N --> O[BigQuery Logging]
-    N --> B
-```
-
 ---
 
 ## Features
