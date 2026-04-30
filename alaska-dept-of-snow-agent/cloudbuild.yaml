@@ -1,0 +1,31 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/ads-online-agent"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/ads-online-agent"
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "ads-online-agent"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/ads-online-agent"
+      - "--region"
+      - "us-central1"
+      - "--platform"
+      - "managed"
+      - "--allow-unauthenticated"
+      - "--set-env-vars"
+      - "PROJECT_ID=$PROJECT_ID,LOCATION=us-central1,MODEL_NAME=gemini-1.5-flash,GCS_BUCKET=labs-roitraining-com,GCS_PREFIX=alaska-dept-of-snow,LOG_DATASET=ads_agent_logs,LOG_TABLE=prompt_response_logs,MODEL_ARMOR_TEMPLATE_ID=ads-safety-template,MODEL_ARMOR_LOCATION=us-central1"
+
+images:
+  - "gcr.io/$PROJECT_ID/ads-online-agent"

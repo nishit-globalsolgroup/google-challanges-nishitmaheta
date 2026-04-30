@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+google-cloud-storage
+google-cloud-aiplatform[evaluation]
+google-cloud-logging
+google-cloud-bigquery
+google-auth
+google-auth-httplib2
+python-dotenv
+pydantic
+pytest
+requests
+pandas
